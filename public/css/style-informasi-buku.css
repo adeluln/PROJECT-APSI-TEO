@@ -1,0 +1,382 @@
+/* =========================================================
+   style-informasi-buku.css
+   Perpustakaan SMAIT Al-Uswah
+   ========================================================= */
+
+/* =========================================================
+   HERO / BREADCRUMB
+   ========================================================= */
+.info-hero {
+    background: var(--bg);
+    padding: 24px 0 0;
+}
+
+.info-hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .85rem;
+    margin-bottom: 20px;
+}
+
+.breadcrumb a {
+    color: var(--text);
+    opacity: .65;
+    text-decoration: none;
+    transition: opacity .2s ease;
+}
+.breadcrumb a:hover { opacity: 1; color: var(--primary); }
+
+.breadcrumb-sep { color: var(--text); opacity: .4; }
+
+.breadcrumb-current {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.info-hero-banner {
+    background: linear-gradient(135deg, rgba(144,195,198,.25), rgba(213,197,219,.18));
+    border-radius: var(--radius-lg);
+    padding: 40px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-hero-title {
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.info-hero-sub {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #b8742f;
+}
+
+.info-hero-deco { opacity: .8; }
+
+/* =========================================================
+   DETAIL BUKU
+   ========================================================= */
+.info-detail {
+    background: var(--bg);
+    padding: 40px 0;
+}
+
+.info-detail-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* LEFT */
+.info-left {
+    position: sticky;
+    top: 88px;
+}
+
+.info-cover-wrap {
+    background: linear-gradient(160deg, #FFDDD2, #f5c9bb);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.info-bookmark {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    z-index: 2;
+}
+
+.info-cover {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(0,0,0,.25);
+    display: block;
+}
+
+.btn-pinjam {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    border-radius: var(--radius);
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(45,112,118,.3);
+    transition: background .2s ease, transform .2s ease;
+}
+
+.btn-pinjam:hover {
+    background: #1f555a;
+    transform: translateY(-2px);
+}
+
+/* RIGHT */
+.info-kategori {
+    display: inline-block;
+    font-size: .76rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    color: #1f555a;
+    background: rgba(144,195,198,.4);
+    margin-bottom: 16px;
+    letter-spacing: .02em;
+}
+
+.kategori-fiksi    { background: rgba(192,57,43,.12); color: #c0392b; }
+.kategori-filsafat { background: rgba(142,68,173,.12); color: #8e44ad; }
+.kategori-sejarah  { background: rgba(45,112,118,.12); color: #2D7076; }
+.kategori-motivasi { background: rgba(22,160,133,.12); color: #16a085; }
+
+.info-judul {
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.info-penulis {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .95rem;
+    color: var(--text);
+    opacity: .75;
+    margin-bottom: 28px;
+}
+
+/* Ringkasan */
+.info-ringkasan {
+    background: #EEF2F1;
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 28px;
+}
+
+.ringkasan-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.ringkasan-text {
+    font-size: .9rem;
+    line-height: 1.85;
+    color: var(--text);
+    opacity: .9;
+}
+
+/* Stok */
+.info-stok {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.stok-card {
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+}
+
+.stok-total {
+    background: #EEF2F1;
+    border-bottom-color: #90C3C6;
+}
+.stok-tersedia {
+    background: rgba(144,195,198,.18);
+    border-bottom-color: var(--primary);
+}
+.stok-dipinjam {
+    background: rgba(255,221,210,.5);
+    border-bottom-color: #b8742f;
+}
+
+.stok-label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--text);
+    opacity: .6;
+    letter-spacing: .04em;
+    margin-bottom: 8px;
+}
+
+.stok-value {
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stok-dipinjam .stok-value { color: #b8742f; }
+
+/* =========================================================
+   TABS
+   ========================================================= */
+.info-tabs-section {
+    background: var(--bg);
+    padding: 16px 0 64px;
+}
+
+.info-tabs-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.info-tabs-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    box-shadow: var(--shadow);
+}
+
+.tabs-header {
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid rgba(45,112,118,.12);
+    margin-bottom: 28px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: .6;
+    cursor: pointer;
+    padding: 0 0 14px;
+    position: relative;
+    transition: opacity .2s ease, color .2s ease;
+}
+
+.tab-btn:hover { opacity: 1; }
+
+.tab-btn.active {
+    opacity: 1;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 3px 3px 0 0;
+}
+
+/* Tab content */
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeTab .3s ease; }
+
+@keyframes fadeTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 56px;
+    margin-bottom: 28px;
+}
+
+.info-grid-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(45,112,118,.1);
+}
+
+.grid-label {
+    font-size: .88rem;
+    color: var(--text);
+    opacity: .7;
+}
+
+.grid-value {
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: right;
+}
+
+/* Notice box */
+.info-notice-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(255,221,210,.35);
+    border: 1px dashed rgba(184,116,47,.4);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+}
+
+.info-notice-box svg { flex-shrink: 0; margin-top: 1px; }
+
+.info-notice-box p {
+    font-size: .85rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: .85;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+    .info-detail-inner { grid-template-columns: 1fr; }
+    .info-left { position: static; max-width: 320px; margin: 0 auto; }
+    .info-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .info-hero-inner,
+    .info-detail-inner,
+    .info-tabs-inner { padding-left: 24px; padding-right: 24px; }
+    .info-hero-banner { padding: 28px 24px; }
+    .info-stok { grid-template-columns: 1fr; }
+    .info-tabs-card { padding: 24px 20px; }
+}

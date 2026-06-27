@@ -135,7 +135,7 @@
                         <p class="buku-penulis">Andrea Hirata</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <a href="{{ route('informasi-buku', ['id' => 1]) }}" class="btn-detail">Lihat Detail</a>
+                            <a href="{{ route('informasi-buku-admin', ['id' => 1]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                         <p class="buku-penulis">Jostein Gaarder</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979433</span>
-                            <a href="{{ route('informasi-buku', ['id' => 2]) }}" class="btn-detail">Lihat Detail</a>
+                            <a href="{{ route('informasi-buku-admin', ['id' => 2]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                         <p class="buku-penulis">Dr. Fauzan Adhim, M.Pd.I.</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979421</span>
-                            <a href="{{ route('informasi-buku', ['id' => 3]) }}" class="btn-detail">Lihat Detail</a>
+                            <a href="{{ route('informasi-buku-admin', ['id' => 3]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                     <div class="buku-cover-wrap">
                         <img src="{{ asset('assets/slow-down-sampul.jpg') }}" alt="Slow Down" class="buku-cover">
                     </div>
-                    <div class="buku-info">
+                    <div class="buku-info">fi
                         <div class="buku-meta-top">
                             <span class="buku-kategori kategori-motivasi">Motivasi</span>
                             <span class="buku-status status-tersedia"><span class="status-dot"></span> Tersedia</span>
@@ -192,7 +192,7 @@
                         <p class="buku-penulis">Haemin Sunim</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <a href="{{ route('informasi-buku', ['id' => 4]) }}" class="btn-detail">Lihat Detail</a>
+                            <a href="{{ route('informasi-buku-admin', ['id' => 4]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>

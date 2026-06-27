@@ -78,35 +78,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style-home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-home-anggota.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style-informasi-buku.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-home-admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-informasi-buku-admin.css') }}">
 </head>
-<body>
+<body class="admin-page">
 
     {{-- ===== NAVBAR (3 role) ===== --}}
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="{{ route('home-anggota') }}" class="nav-brand">
+            <a href="{{ route('home-admin') }}" class="nav-brand">
                 <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="nav-logo">
                 <span class="nav-brand-name">Al-Uswah Library</span>
             </a>
 
             <nav class="nav-links">
-                <a href="{{ route('dashboard-anggota') }}" class="nav-link">Dashboard</a>
-                <a href="{{ route('katalog-anggota') }}" class="nav-link active">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan-anggota') }}" class="nav-link">Tentang</a>
-                <a href="{{ route('riwayat-peminjaman') }}" class="nav-link">Riwayat</a>
-                <a href="{{ route('status-denda') }}" class="nav-link">Denda</a>
+                <a href="{{ route('dashboard-admin') }}" class="nav-link">Dashboard</a>
+                <a href="{{ route('katalog-admin') }}" class="nav-link active">Katalog</a>
+                <a href="{{ route('tentang-perpustakaan-admin') }}" class="nav-link">Tentang</a>
+                <a href="{{ route('kelola-buku') }}" class="nav-link">Buku</a>
+                <a href="{{ route('kelola-anggota') }}" class="nav-link">Anggota</a>
+                <a href="{{ route('riwayat-transaksi') }}" class="nav-link">Transaksi</a>
+                <a href="{{ route('kelola-denda') }}" class="nav-link">Denda</a>
             </nav>
 
-            <a href="{{ route('profil-anggota') }}" class="nav-profile">
+            <a href="{{ route('setting') }}" class="nav-profile">
                 <div class="nav-avatar">
-                    @if(auth()->user()?->foto)
-                        <img src="{{ asset('storage/' . auth()->user()->foto) }}" alt="Foto Profil" class="avatar-img">
-                    @else
-                        <div class="avatar-placeholder">{{ strtoupper(substr(auth()->user()?->nama_lengkap ?? 'A', 0, 1)) }}</div>
-                    @endif
+                    <div class="avatar-placeholder admin-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
                 </div>
-                <span class="nav-username">{{ auth()->user()?->nama_lengkap ?? 'Anggota' }}</span>
+                <div class="nav-profile-info">
+                    <span class="nav-username">{{ auth()->user()->nama_lengkap ?? 'Admin' }}</span>
+                    <span class="nav-role">Administrator</span>
+                </div>
             </a>
         </div>
     </header>
@@ -115,7 +119,7 @@
     <section class="info-hero">
         <div class="info-hero-inner">
             <nav class="breadcrumb">
-                <a href="{{ route('katalog-anggota') }}">Katalog</a>
+                <a href="{{ route('katalog-admin') }}">Katalog</a>
                 <span class="breadcrumb-sep">&rsaquo;</span>
                 <span class="breadcrumb-current">Detail Buku</span>
             </nav>
@@ -145,9 +149,9 @@
                     <img src="{{ asset('assets/' . $buku['cover']) }}" alt="{{ $buku['judul'] }}" class="info-cover">
                 </div>
 
-                <a href="#" class="btn-pinjam">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                        Pinjam Buku Ini
+<a href="{{ route('edit-buku', ['id' => $id]) }}" class="btn-pinjam">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        Edit Buku Ini
                     </a>
             </div>
 
@@ -297,6 +301,6 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/script-informasi-buku.js') }}"></script>
+    <script src="{{ asset('js/script-informasi-buku-admin.js') }}"></script>
 </body>
 </html>

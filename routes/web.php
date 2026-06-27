@@ -20,6 +20,7 @@ Route::view('/tentang-perpustakaan-admin', 'tentang-perpustakaan-admin')->name('
 
 Route::view('/dashboard-anggota', 'dashboard-anggota')->name('dashboard-anggota');
 Route::view('/informasi-buku', 'informasi-buku')->name('informasi-buku');
+Route::view('/informasi-buku-admin', 'informasi-buku-admin')->name('informasi-buku-admin');
 Route::view('/riwayat-peminjaman', 'riwayat-peminjaman')->name('riwayat-peminjaman');
 Route::view('/status-denda', 'status-denda')->name('status-denda');
 Route::view('/profil-anggota', 'profil-anggota')->name('profil-anggota');
@@ -38,3 +39,8 @@ Route::view('/laporan', 'laporan')->name('laporan');
 Route::view('/setting', 'setting')->name('setting');
 Route::view('/kategori-rak', 'kategori-rak')->name('kategori-rak');
 Route::view('/tambah-anggota', 'tambah-anggota')->name('tambah-anggota');
+
+Route::post('/logout', function () {
+    session()->flush();
+    return redirect()->route('log-in');
+})->name('logout');

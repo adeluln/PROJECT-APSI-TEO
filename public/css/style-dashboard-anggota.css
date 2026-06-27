@@ -1,0 +1,663 @@
+/* =========================================================
+   style-dashboard-anggota.css
+   Perpustakaan SMAIT Al-Uswah
+   ========================================================= */
+
+.logout-form { margin: 0; }
+
+/* =========================================================
+   GREETING
+   ========================================================= */
+.greeting-section {
+    background: var(--bg);
+    padding: 40px 0 24px;
+}
+
+.greeting-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.greeting-title {
+    font-family: 'Georgia', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.greeting-spark { display: inline-flex; }
+
+.greeting-title em {
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #b8742f;
+    font-weight: 400;
+}
+
+.greeting-sub {
+    font-size: .9rem;
+    color: var(--text);
+    opacity: .75;
+}
+
+/* =========================================================
+   STAT CARDS
+   ========================================================= */
+.dashboard-stats {
+    background: var(--bg);
+    padding: 16px 0 32px;
+}
+
+.dashboard-stats-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.dash-stat-card {
+    border-radius: var(--radius-lg);
+    padding: 22px 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.dash-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(45,112,118,.16);
+}
+
+/* Dekorasi lingkaran di pojok */
+.dash-stat-deco {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.25);
+    pointer-events: none;
+}
+
+.dash-stat-deco::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.18);
+}
+
+/* ===== Warna tiap card ===== */
+.card-teal {
+    background: linear-gradient(150deg, #2D7076, #235c61);
+    color: #fff;
+}
+.card-mint {
+    background: linear-gradient(150deg, #90C3C6, #6fa8ac);
+    color: #1f3d40;
+}
+.card-orchid {
+    background: linear-gradient(150deg, #D5C5DB, #c0adc9);
+    color: #4a3a52;
+}
+.card-alert {
+    background: var(--white);
+    border: 2px solid #e0a96d;
+    color: var(--text);
+}
+
+.dash-stat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.dash-stat-label {
+    font-size: .82rem;
+    font-weight: 700;
+    opacity: .9;
+}
+
+.dash-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.25);
+    color: currentColor;
+}
+
+.card-alert .dash-stat-icon {
+    background: rgba(224,169,109,.2);
+    color: #d4863f;
+}
+
+.dash-stat-value {
+    font-family: 'Georgia', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.alert-value { color: #d4863f; }
+
+/* Tren / sublabel di bawah */
+.dash-stat-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .72rem;
+    font-weight: 600;
+    opacity: .85;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    color: inherit;
+}
+
+.trend-warn { color: inherit; }
+
+.trend-link {
+    color: #d4863f;
+    font-weight: 700;
+    transition: gap .2s ease;
+}
+.trend-link:hover { text-decoration: underline; }
+
+.ping-dot {
+    width: 8px;
+    height: 8px;
+    background: #4a3a52;
+    border-radius: 50%;
+    animation: pingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pingPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .4; transform: scale(1.4); }
+}
+
+/* =========================================================
+   MAIN GRID
+   ========================================================= */
+.dashboard-main {
+    background: var(--bg);
+    padding: 16px 0 64px;
+}
+
+.dashboard-main-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.dash-block {
+    margin-bottom: 36px;
+}
+
+.dash-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.dash-block-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.dash-block-header .dash-block-title { margin-bottom: 0; }
+
+.dash-lihat-semua {
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    transition: opacity .2s ease;
+}
+
+.dash-lihat-semua:hover { opacity: .7; }
+
+/* =========================================================
+   PINJAMAN AKTIF
+   ========================================================= */
+.pinjaman-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    border: 1.5px solid rgba(45,112,118,.06);
+    transition: box-shadow .2s ease;
+}
+
+.pinjaman-item:hover { box-shadow: var(--shadow); }
+
+.pinjaman-cover {
+    width: 48px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+.pinjaman-info { flex: 1; }
+
+.pinjaman-judul {
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.pinjaman-kembali {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .82rem;
+    color: var(--text);
+    opacity: .8;
+}
+
+.badge-aman, .badge-segera {
+    font-size: .66rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: .04em;
+    margin-left: 6px;
+}
+
+.badge-aman { background: rgba(144,195,198,.4); color: #1f555a; }
+.badge-segera { background: rgba(255,221,210,.9); color: #c0392b; }
+
+.pinjaman-menu {
+    background: var(--bg);
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s ease;
+}
+
+.pinjaman-menu:hover { background: rgba(45,112,118,.1); }
+
+/* =========================================================
+   REKOMENDASI
+   ========================================================= */
+.rekomendasi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.rekom-card {
+    text-decoration: none;
+    color: inherit;
+    transition: transform .2s ease;
+}
+
+.rekom-card:hover { transform: translateY(-4px); }
+
+.rekom-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,.14);
+    margin-bottom: 12px;
+}
+
+.rekom-judul {
+    font-family: 'Georgia', serif;
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rekom-penulis {
+    font-size: .78rem;
+    color: var(--text);
+    opacity: .6;
+}
+
+/* =========================================================
+   KARTU ANGGOTA DIGITAL
+   ========================================================= */
+.kartu-digital {
+    background: linear-gradient(145deg, #2D7076, #1a4a50);
+    border-radius: var(--radius-lg);
+    padding: 26px 26px 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.kartu-star {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,221,210,.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kartu-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.kartu-label {
+    font-size: .66rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.7);
+    letter-spacing: .1em;
+}
+
+.kartu-nama-perpus {
+    font-family: 'Georgia', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 4px;
+}
+
+.kartu-nama-anggota {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.kartu-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.kartu-id {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.85);
+    letter-spacing: .15em;
+}
+
+.kartu-qr {
+    width: 56px;
+    height: 56px;
+    background: var(--white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kartu-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    color: var(--text);
+    opacity: .75;
+    margin: 12px 0 24px;
+    justify-content: center;
+}
+
+/* =========================================================
+   STATISTIK MEMBACA (pengganti Akses Cepat)
+   ========================================================= */
+.statistik-card {
+    background: #EEF2F1;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.statistik-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.statistik-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.statistik-period {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: .6;
+    background: var(--white);
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+/* Bar chart */
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    height: 130px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.chart-bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.chart-bar {
+    width: 100%;
+    max-width: 28px;
+    height: var(--val);
+    background: var(--secondary);
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    transition: height .8s cubic-bezier(.16,1,.3,1);
+    cursor: pointer;
+}
+
+.chart-bar:hover { background: var(--primary); }
+
+.chart-bar-active {
+    background: var(--primary);
+}
+
+.chart-bar::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--primary);
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.chart-bar:hover::after,
+.chart-bar-active::after { opacity: 1; }
+
+.chart-label {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: .6;
+}
+
+.statistik-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid rgba(45,112,118,.12);
+}
+
+.statistik-total {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-num {
+    font-family: 'Georgia', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.total-label {
+    font-size: .72rem;
+    color: var(--text);
+    opacity: .6;
+}
+
+.statistik-streak {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .75rem;
+    font-weight: 600;
+    color: #b8742f;
+    max-width: 130px;
+    text-align: right;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   PERINGKAT MEMBACA
+   ========================================================= */
+.peringkat-card {
+    background: linear-gradient(145deg, #8a5a2b, #6b4423);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.peringkat-label {
+    font-size: .66rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.7);
+    letter-spacing: .1em;
+}
+
+.peringkat-rank {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin: 4px 0 16px;
+}
+
+.peringkat-progress {
+    height: 6px;
+    background: rgba(255,255,255,.2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.peringkat-progress-fill {
+    height: 100%;
+    background: rgba(255,255,255,.9);
+    border-radius: 999px;
+    transition: width 1s ease;
+}
+
+.peringkat-note {
+    font-size: .76rem;
+    color: rgba(255,255,255,.8);
+}
+
+.peringkat-star {
+    position: absolute;
+    bottom: -8px;
+    right: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1024px) {
+    .dashboard-main-inner { grid-template-columns: 1fr; }
+    .dashboard-stats-inner { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .greeting-inner,
+    .dashboard-stats-inner,
+    .dashboard-main-inner { padding-left: 24px; padding-right: 24px; }
+    .rekomendasi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .dashboard-stats-inner { grid-template-columns: 1fr; }
+    .rekomendasi-grid { grid-template-columns: 1fr; }
+}
