@@ -22,8 +22,8 @@
 
             <nav class="nav-links">
                 <a href="{{ route('dashboard-admin') }}" class="nav-link">Dashboard</a>
-                <a href="{{ route('katalog') }}" class="nav-link">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan') }}" class="nav-link">Tentang</a>
+                <a href="{{ route('katalog-admin') }}" class="nav-link">Katalog</a>
+                <a href="{{ route('tentang-perpustakaan-admin') }}" class="nav-link">Tentang</a>
                 <a href="{{ route('kelola-buku') }}" class="nav-link">Buku</a>
                 <a href="{{ route('kelola-anggota') }}" class="nav-link">Anggota</a>
                 <a href="{{ route('riwayat-transaksi') }}" class="nav-link">Transaksi</a>

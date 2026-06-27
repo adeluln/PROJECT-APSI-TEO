@@ -12,7 +12,11 @@ Route::view('/home', 'home')->name('home');
 Route::view('/home-anggota', 'home-anggota')->name('home-anggota');
 Route::view('/home-admin', 'home-admin')->name('home-admin');
 Route::view('/katalog', 'katalog')->name('katalog');
+Route::view('/katalog-admin', 'katalog-admin')->name('katalog-admin');
+Route::view('/katalog-anggota', 'katalog-anggota')->name('katalog-anggota');
 Route::view('/tentang-perpustakaan', 'tentang-perpustakaan')->name('tentang-perpustakaan');
+Route::view('/tentang-perpustakaan-anggota', 'tentang-perpustakaan-anggota')->name('tentang-perpustakaan-anggota');
+Route::view('/tentang-perpustakaan-admin', 'tentang-perpustakaan-admin')->name('tentang-perpustakaan-admin');
 
 Route::view('/dashboard-anggota', 'dashboard-anggota')->name('dashboard-anggota');
 Route::view('/informasi-buku', 'informasi-buku')->name('informasi-buku');

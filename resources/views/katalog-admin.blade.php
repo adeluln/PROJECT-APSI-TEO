@@ -3,30 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog – Perpustakaan SMAIT Al-Uswah</title>
+    <title>Katalog Admin – Perpustakaan SMAIT Al-Uswah</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style-home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-home-anggota.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-home-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-katalog.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-katalog-admin.css') }}">
 </head>
-<body>
+<body class="admin-page">
 
     {{-- ===== NAVBAR ===== --}}
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="{{ route('home') }}" class="nav-brand">
+            <a href="{{ route('home-admin') }}" class="nav-brand">
                 <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="nav-logo">
                 <span class="nav-brand-name">Al-Uswah Library</span>
             </a>
 
             <nav class="nav-links">
-                <a href="{{ route('home') }}" class="nav-link">Beranda</a>
-                <a href="{{ route('katalog') }}" class="nav-link active">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan') }}" class="nav-link">Tentang</a>
-                <a href="{{ route('register') }}" class="nav-link">Daftar Anggota</a>
+                <a href="{{ route('dashboard-admin') }}" class="nav-link">Dashboard</a>
+                <a href="{{ route('katalog-admin') }}" class="nav-link active">Katalog</a>
+                <a href="{{ route('tentang-perpustakaan-admin') }}" class="nav-link">Tentang</a>
+                <a href="{{ route('kelola-buku') }}" class="nav-link">Buku</a>
+                <a href="{{ route('kelola-anggota') }}" class="nav-link">Anggota</a>
+                <a href="{{ route('riwayat-transaksi') }}" class="nav-link">Transaksi</a>
+                <a href="{{ route('kelola-denda') }}" class="nav-link">Denda</a>
             </nav>
 
-            <a href="{{ route('log-in') }}" class="btn-nav-cta">Masuk</a>
+            <a href="{{ route('setting') }}" class="nav-profile">
+                <div class="nav-avatar">
+                    <div class="avatar-placeholder admin-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                </div>
+                <div class="nav-profile-info">
+                    <span class="nav-username">{{ auth()->user()->nama_lengkap ?? 'Admin' }}</span>
+                    <span class="nav-role">Administrator</span>
+                </div>
+            </a>
         </div>
     </header>
 
@@ -120,7 +135,7 @@
                         <p class="buku-penulis">Andrea Hirata</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 1]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -139,7 +154,7 @@
                         <p class="buku-penulis">Jostein Gaarder</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979433</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 2]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +173,7 @@
                         <p class="buku-penulis">Dr. Fauzan Adhim, M.Pd.I.</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979421</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 3]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +192,7 @@
                         <p class="buku-penulis">Haemin Sunim</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 4]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -209,22 +224,6 @@
 
         </div>
     </section>
-
-
-    {{-- Modal: harus login dulu --}}
-    <div class="modal-overlay" id="loginPromptModal">
-        <div class="modal-box">
-            <div class="modal-icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2D7076" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3 class="modal-title">Masuk untuk Melanjutkan</h3>
-            <p class="modal-body">Kamu perlu masuk atau mendaftar sebagai anggota untuk melihat informasi detail buku dan melakukan peminjaman.</p>
-            <div class="modal-btns">
-                <a href="{{ route('log-in') }}" class="btn-modal">Masuk Sekarang</a>
-                <button class="btn-modal-outline" onclick="closeLoginPrompt()">Nanti Saja</button>
-            </div>
-        </div>
-    </div>
 
     {{-- ===== FOOTER ===== --}}
     <footer class="site-footer">
@@ -274,6 +273,6 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/script-katalog.js') }}"></script>
+    <script src="{{ asset('js/script-katalog-admin.js') }}"></script>
 </body>
 </html>

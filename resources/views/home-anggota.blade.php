@@ -29,8 +29,8 @@
 
             <nav class="nav-links">
                 <a href="{{ route('dashboard-anggota') }}" class="nav-link">Dashboard</a>
-                <a href="{{ route('katalog') }}" class="nav-link">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan') }}" class="nav-link">Tentang</a>
+                <a href="{{ route('katalog-anggota') }}" class="nav-link">Katalog</a>
+                <a href="{{ route('tentang-perpustakaan-anggota') }}" class="nav-link">Tentang</a>
                 <a href="{{ route('riwayat-peminjaman') }}" class="nav-link">Riwayat</a>
                 <a href="{{ route('status-denda') }}" class="nav-link">Denda</a>
             </nav>
@@ -73,7 +73,7 @@
                     </svg>
 
                     <input type="text" id="searchInput" placeholder="Cari judul buku, penulis, atau kategori..." class="search-input">
-                    <a href="{{ route('katalog') }}" class="btn-search" id="btnSearch">Cari</a>
+                    <a href="{{ route('katalog-anggota') }}" class="btn-search" id="btnSearch">Cari</a>
                 </div>
             </div>
 
@@ -96,7 +96,7 @@
                 </div>
                 <h3 class="card-title">Katalog Buku</h3>
                 <p class="card-desc">Jelajahi beragam genre mulai dari Sejarah hingga Sains Modern dalam satu koleksi terpadu.</p>
-                <a href="{{ route('katalog') }}" class="card-link">Mulai Jelajahi &rarr;</a>
+                <a href="{{ route('katalog-anggota') }}" class="card-link">Mulai Jelajahi &rarr;</a>
             </div>
 
             <div class="feature-card">
@@ -123,7 +123,7 @@
                 </div>
                 <h3 class="card-title">Tentang Kami</h3>
                 <p class="card-desc">Pelajari visi kami dalam membangun ekosistem literasi yang modern bagi generasi masa depan.</p>
-                <a href="{{ route('tentang-perpustakaan') }}" class="card-link">Pelajari Visi &rarr;</a>
+                <a href="{{ route('tentang-perpustakaan-anggota') }}" class="card-link">Pelajari Visi &rarr;</a>
             </div>
 
         </div>
@@ -138,7 +138,7 @@
                     <p class="popular-subtitle">Buku-buku yang paling banyak diminati minggu ini.</p>
                 </div>
 
-                <a href="{{ route('katalog') }}" class="btn-lihat-semua">
+                <a href="{{ route('katalog-anggota') }}" class="btn-lihat-semua">
                     Lihat Semua
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="7" height="7"/>
@@ -218,7 +218,7 @@
                     <p class="popular-subtitle">Pilihan buku berdasarkan minat bacamu.</p>
                 </div>
 
-                <a href="{{ route('katalog') }}" class="btn-lihat-semua">
+                <a href="{{ route('katalog-anggota') }}" class="btn-lihat-semua">
                     Lihat Semua &rarr;
                 </a>
             </div>

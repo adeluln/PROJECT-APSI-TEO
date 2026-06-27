@@ -3,30 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog – Perpustakaan SMAIT Al-Uswah</title>
+    <title>Katalog Anggota – Perpustakaan SMAIT Al-Uswah</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style-home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-home-anggota.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-katalog.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-katalog-anggota.css') }}">
 </head>
 <body>
 
     {{-- ===== NAVBAR ===== --}}
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="{{ route('home') }}" class="nav-brand">
+            <a href="{{ route('home-anggota') }}" class="nav-brand">
                 <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="nav-logo">
                 <span class="nav-brand-name">Al-Uswah Library</span>
             </a>
 
             <nav class="nav-links">
-                <a href="{{ route('home') }}" class="nav-link">Beranda</a>
-                <a href="{{ route('katalog') }}" class="nav-link active">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan') }}" class="nav-link">Tentang</a>
-                <a href="{{ route('register') }}" class="nav-link">Daftar Anggota</a>
+                <a href="{{ route('dashboard-anggota') }}" class="nav-link">Dashboard</a>
+                <a href="{{ route('katalog-anggota') }}" class="nav-link active">Katalog</a>
+                <a href="{{ route('tentang-perpustakaan-anggota') }}" class="nav-link">Tentang</a>
+                <a href="{{ route('riwayat-peminjaman') }}" class="nav-link">Riwayat</a>
+                <a href="{{ route('status-denda') }}" class="nav-link">Denda</a>
             </nav>
 
-            <a href="{{ route('log-in') }}" class="btn-nav-cta">Masuk</a>
+            {{-- Profil anggota sementara --}}
+@php
+    $user = auth()->user();
+
+    $namaUser = $user?->nama_lengkap ?? $user?->name ?? 'Anggota';
+    $fotoUser = $user?->foto ?? null;
+    $inisialUser = strtoupper(substr($namaUser, 0, 1));
+@endphp
+
+<a href="{{ route('profil-anggota') }}" class="nav-profile">
+    <div class="nav-avatar">
+        @if($fotoUser)
+            <img src="{{ asset('storage/' . $fotoUser) }}" alt="Foto Profil" class="avatar-img">
+        @else
+            <span class="avatar-placeholder">{{ $inisialUser }}</span>
+        @endif
+    </div>
+
+    <span class="nav-username">{{ $namaUser }}</span>
+</a>
         </div>
     </header>
 
@@ -120,7 +141,7 @@
                         <p class="buku-penulis">Andrea Hirata</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 1]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -139,7 +160,7 @@
                         <p class="buku-penulis">Jostein Gaarder</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979433</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 2]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +179,7 @@
                         <p class="buku-penulis">Dr. Fauzan Adhim, M.Pd.I.</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978979421</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 3]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +198,7 @@
                         <p class="buku-penulis">Haemin Sunim</p>
                         <div class="buku-footer">
                             <span class="buku-isbn">ISBN: 978602291</span>
-                            <button type="button" class="btn-detail" onclick="showLoginPrompt()">Lihat Detail</button>
+                            <a href="{{ route('informasi-buku', ['id' => 4]) }}" class="btn-detail">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -209,22 +230,6 @@
 
         </div>
     </section>
-
-
-    {{-- Modal: harus login dulu --}}
-    <div class="modal-overlay" id="loginPromptModal">
-        <div class="modal-box">
-            <div class="modal-icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2D7076" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3 class="modal-title">Masuk untuk Melanjutkan</h3>
-            <p class="modal-body">Kamu perlu masuk atau mendaftar sebagai anggota untuk melihat informasi detail buku dan melakukan peminjaman.</p>
-            <div class="modal-btns">
-                <a href="{{ route('log-in') }}" class="btn-modal">Masuk Sekarang</a>
-                <button class="btn-modal-outline" onclick="closeLoginPrompt()">Nanti Saja</button>
-            </div>
-        </div>
-    </div>
 
     {{-- ===== FOOTER ===== --}}
     <footer class="site-footer">
@@ -274,6 +279,6 @@
         </div>
     </footer>
 
-    <script src="{{ asset('js/script-katalog.js') }}"></script>
+    <script src="{{ asset('js/script-katalog-anggota.js') }}"></script>
 </body>
 </html>

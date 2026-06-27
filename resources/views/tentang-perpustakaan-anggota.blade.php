@@ -14,19 +14,38 @@
     {{-- ===== NAVBAR ===== --}}
     <header class="navbar">
         <div class="navbar-inner">
-            <a href="{{ route('home') }}" class="nav-brand">
+            <a href="{{ route('home-anggota') }}" class="nav-brand">
                 <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="nav-logo">
                 <span class="nav-brand-name">Al-Uswah Library</span>
             </a>
 
             <nav class="nav-links">
-                <a href="{{ route('home') }}" class="nav-link">Beranda</a>
+                <a href="{{ route('dashboard-anggota') }}" class="nav-link">Dashboard</a>
                 <a href="{{ route('katalog') }}" class="nav-link">Katalog</a>
-                <a href="{{ route('tentang-perpustakaan') }}" class="nav-link active">Tentang</a>
-                <a href="{{ route('register') }}" class="nav-link">Daftar Anggota</a>
+                <a href="{{ route('tentang-perpustakaan-anggota') }}" class="nav-link active">Tentang</a>
+                <a href="{{ route('riwayat-peminjaman') }}" class="nav-link">Riwayat</a>
+                <a href="{{ route('status-denda') }}" class="nav-link">Denda</a>
             </nav>
 
-            <a href="{{ route('log-in') }}" class="btn-nav-cta">Masuk</a>
+            @php
+    $user = auth()->user();
+
+    $namaUser = $user?->nama_lengkap ?? $user?->name ?? 'Anggota';
+    $fotoUser = $user?->foto ?? null;
+    $inisialUser = strtoupper(substr($namaUser, 0, 1));
+@endphp
+
+<a href="{{ route('profil-anggota') }}" class="nav-profile">
+    <div class="nav-avatar">
+        @if($fotoUser)
+            <img src="{{ asset('storage/' . $fotoUser) }}" alt="Foto Profil" class="avatar-img">
+        @else
+            <span class="avatar-placeholder">{{ $inisialUser }}</span>
+        @endif
+    </div>
+
+    <span class="nav-username">{{ $namaUser }}</span>
+</a>
         </div>
     </header>
 
