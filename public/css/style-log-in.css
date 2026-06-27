@@ -1,0 +1,20 @@
+/* =========================================================
+   style-log-in.css
+   Override / tambahan khusus halaman Login
+   Base styles diambil dari style-register.css
+   ========================================================= */
+
+/* Override register-main align khusus halaman login */
+.login-page .register-main {
+    align-items: center;
+}
+
+.login-right .form-card {
+    width: 100%;
+}
+
+/* Full-width override untuk form-group di login
+   (semua field login full width, tidak pakai form-row 2 kolom) */
+.login-right .form-group.full-width {
+    margin-bottom: 20px;
+}
