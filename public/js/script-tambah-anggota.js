@@ -1,279 +1,186 @@
-/* ============================================================
-   script-tambah-anggota.js
-   Upload foto, hapus foto, validasi form, modal sukses
-   ============================================================ */
+/**
+ * script-tambah-anggota.js
+ * Perpustakaan SMAIT Al-Uswah
+ */
 
-/* ---- Elemen ---- */
-const inputFoto        = document.getElementById('inputFoto');
-const fotoPreview      = document.getElementById('fotoPreview');
-const fotoPlaceholder  = document.getElementById('fotoPlaceholder');
-const btnGantiFoto     = document.getElementById('btnGantiFoto');
-const btnTriggerFoto   = document.getElementById('btnTriggerFoto');
-const btnHapusFoto     = document.getElementById('btnHapusFoto');
-const fotoWrap         = document.getElementById('fotoWrap');
+'use strict';
 
-const form             = document.getElementById('formTambahAnggota');
-const modalSukses      = document.getElementById('modalSukses');
-const btnTambahLagi    = document.getElementById('btnTambahLagi');
-const toast            = document.getElementById('toast');
-
-const eyePass          = document.getElementById('eyePass');
-const eyePassIcon      = document.getElementById('eyePassIcon');
-const eyeKonfirmasi    = document.getElementById('eyeKonfirmasi');
-const eyeKonfirmasiIcon = document.getElementById('eyeKonfirmasiIcon');
-
-/* ============================================================
-   FOTO PROFIL
-   ============================================================ */
-
-function triggerFotoPicker() {
-    inputFoto.click();
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg; t.style.background = 'var(--primary)';
+    t.classList.add('show'); clearTimeout(t._x);
+    t._x = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-btnTriggerFoto.addEventListener('click', triggerFotoPicker);
-btnGantiFoto.addEventListener('click', triggerFotoPicker);
-fotoWrap.addEventListener('click', function (e) {
-    // hanya trigger jika bukan klik tombol hapus
-    if (e.target !== btnHapusFoto) triggerFotoPicker();
-});
-
-inputFoto.addEventListener('change', function () {
-    const file = this.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-        showToast('File harus berupa gambar (JPG atau PNG).', '#c0392b');
-        this.value = '';
-        return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-        showToast('Ukuran foto maks 2MB.', '#c0392b');
-        this.value = '';
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        fotoPreview.src = e.target.result;
-        fotoPreview.classList.remove('hidden');
-        fotoPlaceholder.style.display = 'none';
-        btnHapusFoto.classList.remove('hidden');
-        // ubah border jadi solid saat ada foto
-        fotoWrap.style.border = '2.5px solid var(--primary)';
-    };
-    reader.readAsDataURL(file);
-});
-
-btnHapusFoto.addEventListener('click', function (e) {
-    e.stopPropagation();
-    fotoPreview.src = '';
-    fotoPreview.classList.add('hidden');
-    fotoPlaceholder.style.display = '';
-    btnHapusFoto.classList.add('hidden');
-    inputFoto.value = '';
-    fotoWrap.style.border = '2.5px dashed #90C3C6';
-});
-
-/* ============================================================
-   TOGGLE TAMPILKAN PASSWORD
-   ============================================================ */
-
-const EYE_OPEN = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-const EYE_CLOSED = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-<path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-<line x1="1" y1="1" x2="23" y2="23"/>`;
-
-function toggleEye(inputId, iconEl) {
-    const input = document.getElementById(inputId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        iconEl.innerHTML = EYE_CLOSED;
-    } else {
-        input.type = 'password';
-        iconEl.innerHTML = EYE_OPEN;
-    }
+function setErr(id, msg) {
+    document.getElementById(id)?.closest('.ta-form-group')?.classList.add('is-error');
+    const e = document.getElementById('err-' + id);
+    if (e) e.textContent = msg;
 }
 
-eyePass.addEventListener('click', () => toggleEye('password', eyePassIcon));
-eyeKonfirmasi.addEventListener('click', () => toggleEye('konfirmasi', eyeKonfirmasiIcon));
-
-/* ============================================================
-   VALIDASI FORM
-   ============================================================ */
-
-function setError(fieldId, errId, msg) {
-    const field = document.getElementById(fieldId);
-    const err   = document.getElementById(errId);
-    if (msg) {
-        field?.classList.add('is-error');
-        if (err) err.textContent = msg;
-    } else {
-        field?.classList.remove('is-error');
-        if (err) err.textContent = '';
-    }
+function clearErr(id) {
+    document.getElementById(id)?.closest('.ta-form-group')?.classList.remove('is-error');
+    const e = document.getElementById('err-' + id);
+    if (e) e.textContent = '';
 }
 
-function clearAllErrors() {
-    document.querySelectorAll('.is-error').forEach(el => el.classList.remove('is-error'));
-    document.querySelectorAll('.ta-error').forEach(el => el.textContent = '');
-}
+document.addEventListener('DOMContentLoaded', function () {
 
-// Bersihkan error saat field diedit
-['nis','nama','kelas','hp','email','username','password','konfirmasi'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        el.addEventListener('input', () => {
-            el.classList.remove('is-error');
-            const errEl = document.getElementById('err-' + id);
-            if (errEl) errEl.textContent = '';
-        });
-    }
-});
+    /* ── Active nav ── */
+    document.querySelectorAll('.nav-link').forEach(l => {
+        if (l.getAttribute('href') === window.location.pathname) l.classList.add('active');
+    });
 
-function validateForm() {
-    clearAllErrors();
-    let valid = true;
+    /* ============================================================
+       FOTO PROFIL — upload, preview, hapus
+       ============================================================ */
+    const fotoInput      = document.getElementById('taFotoInput');
+    const fotoImg        = document.getElementById('taFotoImg');
+    const fotoPlaceholder= document.getElementById('taFotoPlaceholder');
+    const fotoPreview    = document.getElementById('taFotoPreview');
+    const btnGantiFoto   = document.getElementById('btnGantiFoto');
+    const btnHapusFoto   = document.getElementById('btnHapusFoto');
 
-    const nis        = document.getElementById('nis').value.trim();
-    const nama       = document.getElementById('nama').value.trim();
-    const kelas      = document.getElementById('kelas').value;
-    const hp         = document.getElementById('hp').value.trim();
-    const email      = document.getElementById('email').value.trim();
-    const username   = document.getElementById('username').value.trim();
-    const password   = document.getElementById('password').value;
-    const konfirmasi = document.getElementById('konfirmasi').value;
+    function triggerFoto() { fotoInput?.click(); }
 
-    if (!nis) {
-        setError('nis', 'err-nis', 'NIS wajib diisi.');
-        valid = false;
-    } else if (!/^\d{6,20}$/.test(nis)) {
-        setError('nis', 'err-nis', 'NIS hanya berisi angka (6–20 digit).');
-        valid = false;
-    }
+    btnGantiFoto?.addEventListener('click', triggerFoto);
+    fotoPreview?.addEventListener('click', triggerFoto);
 
-    if (!nama) {
-        setError('nama', 'err-nama', 'Nama lengkap wajib diisi.');
-        valid = false;
-    } else if (nama.length < 3) {
-        setError('nama', 'err-nama', 'Nama minimal 3 karakter.');
-        valid = false;
-    }
-
-    if (!kelas) {
-        setError('kelas', 'err-kelas', 'Pilih kelas terlebih dahulu.');
-        valid = false;
-    }
-
-    if (!hp) {
-        setError('hp', 'err-hp', 'Nomor HP wajib diisi.');
-        valid = false;
-    } else if (!/^0\d{8,14}$/.test(hp)) {
-        setError('hp', 'err-hp', 'Nomor HP tidak valid. Contoh: 081234567890');
-        valid = false;
-    }
-
-    if (!email) {
-        setError('email', 'err-email', 'Email wajib diisi.');
-        valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setError('email', 'err-email', 'Format email tidak valid.');
-        valid = false;
-    }
-
-    if (!username) {
-        setError('username', 'err-username', 'Username wajib diisi.');
-        valid = false;
-    } else if (username.length < 4) {
-        setError('username', 'err-username', 'Username minimal 4 karakter.');
-        valid = false;
-    } else if (/\s/.test(username)) {
-        setError('username', 'err-username', 'Username tidak boleh mengandung spasi.');
-        valid = false;
-    }
-
-    if (!password) {
-        setError('password', 'err-password', 'Password wajib diisi.');
-        valid = false;
-    } else if (password.length < 8) {
-        setError('password', 'err-password', 'Password minimal 8 karakter.');
-        valid = false;
-    }
-
-    if (!konfirmasi) {
-        setError('konfirmasi', 'err-konfirmasi', 'Konfirmasi password wajib diisi.');
-        valid = false;
-    } else if (password && konfirmasi !== password) {
-        setError('konfirmasi', 'err-konfirmasi', 'Password tidak cocok. Coba lagi.');
-        valid = false;
-    }
-
-    return valid;
-}
-
-/* ============================================================
-   SUBMIT FORM
-   ============================================================ */
-
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!validateForm()) {
-        // scroll ke error pertama
-        const firstErr = document.querySelector('.is-error');
-        if (firstErr) {
-            firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    fotoInput?.addEventListener('change', function () {
+        const file = this.files?.[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+            showToast('File harus berupa gambar JPG atau PNG.');
+            return;
         }
-        return;
-    }
-    openModal('modalSukses');
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('Ukuran gambar maksimal 2 MB.');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+            fotoImg.src = e.target.result;
+            fotoImg.classList.remove('hidden');
+            fotoPlaceholder.classList.add('hidden');
+            btnHapusFoto?.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    });
+
+    btnHapusFoto?.addEventListener('click', function (e) {
+        e.stopPropagation();
+        fotoImg.src = '';
+        fotoImg.classList.add('hidden');
+        fotoPlaceholder.classList.remove('hidden');
+        btnHapusFoto.classList.add('hidden');
+        if (fotoInput) fotoInput.value = '';
+    });
+
+    /* ============================================================
+       SHOW/HIDE PASSWORD
+       ============================================================ */
+    document.querySelectorAll('.ta-pass-toggle').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const input = document.getElementById(this.dataset.target);
+            if (!input) return;
+            input.type = input.type === 'password' ? 'text' : 'password';
+        });
+    });
+
+    /* ============================================================
+       CLEAR ERROR ON INPUT
+       ============================================================ */
+    const fields = ['nis','nama_lengkap','kelas','no_hp','email','username','password','konfirmasi_password'];
+    fields.forEach(id => {
+        document.getElementById(id)?.addEventListener('input',  () => clearErr(id));
+        document.getElementById(id)?.addEventListener('change', () => clearErr(id));
+    });
+
+    /* ============================================================
+       VALIDASI & SUBMIT
+       ============================================================ */
+    document.getElementById('tambahAnggotaForm')?.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let ok = true;
+        const v = id => (document.getElementById(id)?.value || '').trim();
+
+        fields.forEach(id => clearErr(id));
+
+        // NIS
+        if (!v('nis')) {
+            setErr('nis', 'NIS wajib diisi.'); ok = false;
+        } else if (!/^\d{6,12}$/.test(v('nis'))) {
+            setErr('nis', 'NIS harus berupa angka 6–12 digit.'); ok = false;
+        }
+
+        // Nama
+        if (!v('nama_lengkap')) {
+            setErr('nama_lengkap', 'Nama lengkap wajib diisi.'); ok = false;
+        } else if (v('nama_lengkap').length < 3) {
+            setErr('nama_lengkap', 'Nama minimal 3 karakter.'); ok = false;
+        }
+
+        // Kelas
+        if (!v('kelas')) {
+            setErr('kelas', 'Pilih kelas terlebih dahulu.'); ok = false;
+        }
+
+        // No HP
+        if (!v('no_hp')) {
+            setErr('no_hp', 'Nomor HP wajib diisi.'); ok = false;
+        } else if (!/^(\+62|08)\d{8,13}$/.test(v('no_hp').replace(/\s/g, ''))) {
+            setErr('no_hp', 'Format nomor HP tidak valid.'); ok = false;
+        }
+
+        // Email
+        if (!v('email')) {
+            setErr('email', 'Email wajib diisi.'); ok = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) {
+            setErr('email', 'Format email tidak valid.'); ok = false;
+        }
+
+        // Username
+        if (!v('username')) {
+            setErr('username', 'Username wajib diisi.'); ok = false;
+        } else if (v('username').length < 4) {
+            setErr('username', 'Username minimal 4 karakter.'); ok = false;
+        } else if (/\s/.test(v('username'))) {
+            setErr('username', 'Username tidak boleh mengandung spasi.'); ok = false;
+        }
+
+        // Password
+        const pass = v('password');
+        if (!pass) {
+            setErr('password', 'Password wajib diisi.'); ok = false;
+        } else if (pass.length < 8) {
+            setErr('password', 'Password minimal 8 karakter.'); ok = false;
+        }
+
+        // Konfirmasi
+        if (!v('konfirmasi_password')) {
+            setErr('konfirmasi_password', 'Konfirmasi password wajib diisi.'); ok = false;
+        } else if (pass && v('konfirmasi_password') !== pass) {
+            setErr('konfirmasi_password', 'Password tidak cocok.'); ok = false;
+        }
+
+        if (!ok) {
+            // Scroll ke error pertama
+            document.querySelector('.ta-form-group.is-error')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        // Sukses → buka modal
+        const modalNama = document.getElementById('taModalNama');
+        if (modalNama) modalNama.textContent = v('nama_lengkap');
+        document.getElementById('taModal')?.classList.add('active');
+    });
+
+    /* ── Modal OK → kelola-anggota ── */
+    document.getElementById('btnTaModalOk')?.addEventListener('click', () => {
+        const kelola = document.querySelector('a[href*="kelola-anggota"]')?.href || '/admin/kelola-anggota';
+        window.location.href = kelola;
+    });
 });
-
-/* ============================================================
-   MODAL
-   ============================================================ */
-
-function openModal(id) {
-    document.getElementById(id)?.classList.add('active');
-}
-
-function closeModal(id) {
-    document.getElementById(id)?.classList.remove('active');
-}
-
-// Klik background tutup modal
-modalSukses.addEventListener('click', function (e) {
-    if (e.target === modalSukses) closeModal('modalSukses');
-});
-
-// Escape tutup modal
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeModal('modalSukses');
-});
-
-// Tombol "Tambah Lagi" — reset form, tutup modal
-btnTambahLagi.addEventListener('click', function () {
-    closeModal('modalSukses');
-    form.reset();
-    clearAllErrors();
-    // reset foto
-    fotoPreview.src = '';
-    fotoPreview.classList.add('hidden');
-    fotoPlaceholder.style.display = '';
-    btnHapusFoto.classList.add('hidden');
-    inputFoto.value = '';
-    fotoWrap.style.border = '2.5px dashed #90C3C6';
-    // scroll ke atas
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-/* ============================================================
-   TOAST
-   ============================================================ */
-
-function showToast(msg, color) {
-    toast.textContent = msg;
-    toast.style.background = color || 'var(--primary)';
-    toast.classList.add('show');
-    clearTimeout(toast._x);
-    toast._x = setTimeout(() => toast.classList.remove('show'), 2800);
-}
