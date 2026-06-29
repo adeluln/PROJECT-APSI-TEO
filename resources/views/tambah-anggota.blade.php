@@ -1,566 +1,290 @@
-@php
-    $slug = request()->path();
-    $slug = $slug === '/' ? 'home' : $slug;
-
-    $pageData = [
-        'register' => [
-            'title' => 'Register',
-            'category' => 'Pendaftaran Anggota',
-            'description' => 'Halaman ini nantinya digunakan untuk pendaftaran anggota perpustakaan baru.'
-        ],
-        'log-in' => [
-            'title' => 'Log In',
-            'category' => 'Masuk ke Sistem',
-            'description' => 'Halaman ini nantinya digunakan oleh anggota dan admin untuk masuk ke sistem.'
-        ],
-        'home' => [
-            'title' => 'Home',
-            'category' => 'Halaman Utama',
-            'description' => 'Halaman utama perpustakaan yang menampilkan katalog, informasi, dan akses layanan.'
-        ],
-        'katalog' => [
-            'title' => 'Katalog',
-            'category' => 'Koleksi Buku',
-            'description' => 'Halaman ini nantinya digunakan untuk melihat dan mencari koleksi buku perpustakaan.'
-        ],
-        'tentang-perpustakaan' => [
-            'title' => 'Tentang Perpustakaan',
-            'category' => 'Informasi Perpustakaan',
-            'description' => 'Halaman ini nantinya berisi profil, layanan, dan informasi umum perpustakaan.'
-        ],
-        'dashboard-anggota' => [
-            'title' => 'Dashboard Anggota',
-            'category' => 'Area Anggota',
-            'description' => 'Halaman ini nantinya menampilkan ringkasan pinjaman, denda, dan notifikasi anggota.'
-        ],
-        'informasi-buku' => [
-            'title' => 'Informasi Buku',
-            'category' => 'Detail Buku',
-            'description' => 'Halaman ini nantinya menampilkan informasi detail buku, stok, lokasi rak, dan ulasan.'
-        ],
-        'riwayat-peminjaman' => [
-            'title' => 'Riwayat Peminjaman',
-            'category' => 'Data Peminjaman',
-            'description' => 'Halaman ini nantinya menampilkan riwayat peminjaman dan pengembalian buku.'
-        ],
-        'status-denda' => [
-            'title' => 'Status Denda',
-            'category' => 'Informasi Denda',
-            'description' => 'Halaman ini nantinya menampilkan denda aktif dan riwayat pembayaran denda.'
-        ],
-        'profil-anggota' => [
-            'title' => 'Profil Anggota',
-            'category' => 'Data Anggota',
-            'description' => 'Halaman ini nantinya digunakan anggota untuk melihat dan mengubah data profil.'
-        ],
-        'dashboard-admin' => [
-            'title' => 'Dashboard Admin',
-            'category' => 'Area Admin',
-            'description' => 'Halaman ini nantinya menampilkan ringkasan data perpustakaan untuk admin.'
-        ],
-        'kelola-buku' => [
-            'title' => 'Kelola Buku',
-            'category' => 'Manajemen Buku',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengelola data koleksi buku.'
-        ],
-        'tambah-buku' => [
-            'title' => 'Tambah Buku',
-            'category' => 'Input Buku Baru',
-            'description' => 'Halaman ini nantinya digunakan admin untuk menambahkan buku baru.'
-        ],
-        'edit-buku' => [
-            'title' => 'Edit Buku',
-            'category' => 'Ubah Data Buku',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengubah data buku.'
-        ],
-        'kelola-anggota' => [
-            'title' => 'Kelola Anggota',
-            'category' => 'Manajemen Anggota',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengelola data dan status anggota.'
-        ],
-        'riwayat-transaksi' => [
-            'title' => 'Riwayat Transaksi',
-            'category' => 'Data Transaksi',
-            'description' => 'Halaman ini nantinya menampilkan data peminjaman dan pengembalian buku.'
-        ],
-        'input-peminjaman' => [
-            'title' => 'Input Peminjaman',
-            'category' => 'Transaksi Baru',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mencatat peminjaman buku.'
-        ],
-        'kelola-denda' => [
-            'title' => 'Kelola Denda',
-            'category' => 'Manajemen Denda',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengelola denda anggota.'
-        ],
-        'detail-transaksi' => [
-            'title' => 'Detail Transaksi',
-            'category' => 'Informasi Transaksi',
-            'description' => 'Halaman ini nantinya menampilkan detail transaksi peminjaman buku.'
-        ],
-        'detail-denda' => [
-            'title' => 'Detail Denda',
-            'category' => 'Informasi Denda',
-            'description' => 'Halaman ini nantinya menampilkan detail denda dan validasi pembayaran.'
-        ],
-        'laporan' => [
-            'title' => 'Laporan',
-            'category' => 'Laporan Perpustakaan',
-            'description' => 'Halaman ini nantinya digunakan admin untuk melihat dan mengekspor laporan.'
-        ],
-        'setting' => [
-            'title' => 'Setting',
-            'category' => 'Pengaturan Sistem',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengatur konfigurasi sistem.'
-        ],
-        'kategori-rak' => [
-            'title' => 'Kategori Rak',
-            'category' => 'Kategori dan Rak Buku',
-            'description' => 'Halaman ini nantinya digunakan admin untuk mengelola kategori dan lokasi rak buku.'
-        ],
-        'tambah-anggota' => [
-            'title' => 'Tambah Anggota',
-            'category' => 'Input Anggota Baru',
-            'description' => 'Halaman ini nantinya digunakan admin untuk menambahkan anggota secara manual.'
-        ],
-    ];
-
-    $page = $pageData[$slug] ?? [
-        'title' => ucwords(str_replace('-', ' ', $slug)),
-        'category' => 'Halaman Sementara',
-        'description' => 'Halaman ini masih berupa placeholder sementara.'
-    ];
-@endphp
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $page['title'] }} - Perpustakaan SMAIT Al-Uswah</title>
+    <title>Tambah Anggota — Perpustakaan SMAIT Al-Uswah</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ asset('css/style-home.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/style-home-anggota.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/style-home-admin.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/style-tambah-anggota.css') }}?v={{ time() }}">
 
     <style>
         :root {
-            --deep-waters: #2D7076;
-            --waves: #90C3C6;
-            --seashell: #F8F7F2;
-            --sand: #E9D9C4;
-            --orchid: #D5C5DB;
-            --pebble: #484441;
-            --white: #FFFFFF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: "Montserrat", sans-serif;
-            color: var(--pebble);
-            background:
-                radial-gradient(circle at 8% 12%, rgba(213, 197, 219, 0.45), transparent 24%),
-                radial-gradient(circle at 92% 8%, rgba(144, 195, 198, 0.48), transparent 26%),
-                radial-gradient(circle at 80% 85%, rgba(233, 217, 196, 0.65), transparent 25%),
-                var(--seashell);
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .pattern {
-            position: fixed;
-            inset: 0;
-            opacity: 0.055;
-            pointer-events: none;
-            background-image:
-                radial-gradient(circle, var(--deep-waters) 2px, transparent 2px);
-            background-size: 34px 34px;
-        }
-
-        .navbar {
-            width: min(1180px, calc(100% - 40px));
-            margin: 22px auto 0;
-            padding: 14px 18px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(45, 112, 118, 0.12);
-            box-shadow: 0 18px 45px rgba(45, 112, 118, 0.11);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 18px;
-            position: sticky;
-            top: 18px;
-            z-index: 10;
-            backdrop-filter: blur(14px);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--deep-waters);
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        .brand-icon {
-            width: 38px;
-            height: 38px;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            background: var(--deep-waters);
-            color: var(--seashell);
-            box-shadow: 0 12px 24px rgba(45, 112, 118, 0.24);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .nav-links a {
-            padding: 9px 13px;
-            border-radius: 999px;
-            font-size: 13px;
-            font-weight: 700;
-            transition: 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            background: var(--sand);
-            color: var(--deep-waters);
-        }
-
-        .nav-links .login-btn {
-            background: var(--deep-waters);
-            color: var(--seashell);
-        }
-
-        .container {
-            width: min(1120px, calc(100% - 40px));
-            margin: 54px auto 70px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero {
-            position: relative;
-            overflow: hidden;
-            padding: 64px;
-            border-radius: 40px;
-            background:
-                linear-gradient(135deg, rgba(45, 112, 118, 0.97), rgba(45, 112, 118, 0.84)),
-                var(--deep-waters);
-            color: var(--seashell);
-            box-shadow: 0 30px 80px rgba(45, 112, 118, 0.26);
-        }
-
-        .hero::before {
-            content: "📚 ✦ 🔖 ✦ 📖 ✦";
-            position: absolute;
-            top: 30px;
-            right: 42px;
-            font-size: 52px;
-            letter-spacing: 12px;
-            opacity: 0.12;
-        }
-
-        .hero::after {
-            content: "";
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            background: rgba(213, 197, 219, 0.28);
-            position: absolute;
-            right: -90px;
-            bottom: -110px;
-        }
-
-        .badge {
-            width: fit-content;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 15px;
-            margin-bottom: 20px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.14);
-            color: var(--seashell);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            max-width: 720px;
-            margin-bottom: 16px;
-            font-family: "Alstoria", "DM Serif Display", serif;
-            font-size: clamp(44px, 7vw, 88px);
-            line-height: 0.95;
-            letter-spacing: -1px;
-        }
-
-        .accent {
-            margin-bottom: 18px;
-            font-family: "Brittany", "Allura", cursive;
-            font-size: 38px;
-            color: var(--orchid);
-        }
-
-        .description {
-            max-width: 680px;
-            margin-bottom: 30px;
-            font-size: 16px;
-            line-height: 1.8;
-            color: rgba(248, 247, 242, 0.88);
-        }
-
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 13px 18px;
-            border-radius: 999px;
-            font-size: 14px;
-            font-weight: 800;
-            transition: 0.2s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--seashell);
-            color: var(--deep-waters);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.14);
-            color: var(--seashell);
-            border: 1px solid rgba(255, 255, 255, 0.28);
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 24px;
-        }
-
-        .card {
-            padding: 24px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(45, 112, 118, 0.10);
-            box-shadow: 0 18px 45px rgba(45, 112, 118, 0.09);
-        }
-
-        .card-icon {
-            width: 46px;
-            height: 46px;
-            margin-bottom: 14px;
-            display: grid;
-            place-items: center;
-            border-radius: 16px;
-            background: var(--sand);
-            color: var(--deep-waters);
-            font-size: 20px;
-        }
-
-        .card h3 {
-            margin-bottom: 8px;
-            color: var(--deep-waters);
-            font-size: 18px;
-        }
-
-        .card p {
-            margin-bottom: 14px;
-            color: rgba(72, 68, 65, 0.75);
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .card a {
-            color: var(--deep-waters);
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .quick-section {
-            margin-top: 24px;
-            padding: 28px;
-            border-radius: 34px;
-            background:
-                linear-gradient(135deg, rgba(233, 217, 196, 0.80), rgba(144, 195, 198, 0.26));
-            border: 1px solid rgba(45, 112, 118, 0.10);
-        }
-
-        .quick-section h2 {
-            margin-bottom: 16px;
-            color: var(--deep-waters);
-            font-family: "Alstoria", "DM Serif Display", serif;
-            font-size: 36px;
-        }
-
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .chip {
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.68);
-            border: 1px solid rgba(45, 112, 118, 0.10);
-            color: var(--pebble);
-            font-size: 13px;
-            font-weight: 700;
-            transition: 0.2s ease;
-        }
-
-        .chip:hover {
-            background: var(--deep-waters);
-            color: var(--seashell);
-        }
-
-        @media (max-width: 900px) {
-            .navbar {
-                align-items: flex-start;
-                flex-direction: column;
-                border-radius: 28px;
-            }
-
-            .nav-links {
-                justify-content: flex-start;
-            }
-
-            .hero {
-                padding: 40px 26px;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
+            --primary: #2D7076;
+            --secondary: #90C3C6;
+            --bg: #F8F7F2;
+            --card: #E9D9C4;
+            --accent: #D5C5DB;
+            --text: #484441;
+            --radius: 14px;
+            --radius-lg: 26px;
         }
     </style>
 </head>
+<body class="admin-page">
 
-<body>
-    <div class="pattern"></div>
-
+    {{-- ===================== NAVBAR ADMIN ===================== --}}
     <nav class="navbar">
-        <a href="{{ url('/home') }}" class="brand">
-            <span class="brand-icon">📚</span>
-            <span>Perpustakaan Al-Uswah</span>
-        </a>
-
-        <div class="nav-links">
-            <a href="{{ url('/home') }}">Home</a>
-            <a href="{{ url('/katalog') }}">Katalog</a>
-            <a href="{{ url('/tentang-perpustakaan') }}">Tentang</a>
-            <a href="{{ url('/dashboard-anggota') }}">Anggota</a>
-            <a href="{{ url('/dashboard-admin') }}">Admin</a>
-            <a href="{{ url('/register') }}">Register</a>
-            <a href="{{ url('/log-in') }}" class="login-btn">Login</a>
+        <div class="nav-container">
+            <a href="{{ route('home-admin') }}" class="nav-brand">
+                <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="brand-logo">
+                <span class="brand-name">Perpustakaan<span class="brand-accent"> Al-Uswah</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ route('home-admin') }}">Beranda</a></li>
+                <li><a href="{{ route('katalog-admin') }}">Katalog</a></li>
+                <li><a href="{{ route('tentang-perpustakaan-admin') }}">Tentang</a></li>
+                <li><a href="{{ route('kelola-buku') }}">Buku</a></li>
+                <li><a href="{{ route('kelola-anggota') }}" class="active">Anggota</a></li>
+                <li><a href="{{ route('detail-transaksi') }}">Transaksi</a></li>
+                <li><a href="{{ route('kelola-denda') }}">Denda</a></li>
+            </ul>
+            <div class="nav-profile">
+                <span class="profile-label">Administrator</span>
+                <div class="profile-avatar">
+                    @if(auth()->user()?->foto)
+                        <img src="{{ asset('assets/' . auth()->user()?->foto) }}" alt="Profil">
+                    @else
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                        </svg>
+                    @endif
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="container">
-        <section class="hero">
-            <div class="badge">Halaman Sementara</div>
+    {{-- ===================== MAIN CONTENT ===================== --}}
+    <main class="ta-main">
+        <div class="ta-container">
 
-            <h1>{{ $page['title'] }}</h1>
-
-            <div class="accent">{{ $page['category'] }}</div>
-
-            <p class="description">
-                {{ $page['description'] }}
-                Tampilan ini masih placeholder sementara supaya tombol dan navigasi bisa langsung terhubung ke halaman yang dituju.
-            </p>
-
-            <div class="actions">
-                <a href="{{ url('/home') }}" class="btn btn-primary">Kembali ke Home</a>
-                <a href="{{ url('/katalog') }}" class="btn btn-secondary">Lihat Katalog</a>
-            </div>
-        </section>
-
-        <section class="cards">
-            <div class="card">
-                <div class="card-icon">🔗</div>
-                <h3>Link Sudah Aktif</h3>
-                <p>Halaman ini sudah bisa dibuka melalui tombol, menu, atau URL sesuai route yang dibuat.</p>
-                <a href="{{ url()->current() }}">Buka halaman ini</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🧩</div>
-                <h3>Masih Placeholder</h3>
-                <p>Isi halaman belum final, jadi nanti bisa diganti dengan desain asli tanpa mengubah link.</p>
-                <a href="{{ url('/dashboard-admin') }}">Cek dashboard admin</a>
+            {{-- Header --}}
+            <div class="ta-header">
+                <div class="ta-header-left">
+                    <span class="ta-eyebrow">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="13" height="13">
+                            <circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+                        </svg>
+                        Tambah anggota baru
+                    </span>
+                    <h1 class="ta-title">Daftarkan Anggota Baru</h1>
+                    <p class="ta-desc">Isi data siswa sesuai Kartu Pelajar untuk membuat akun perpustakaan.</p>
+                </div>
+                <div class="ta-header-illus" aria-hidden="true">
+                    <svg viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="20" width="140" height="100" rx="12" fill="#2D7076" opacity=".08"/>
+                        <rect x="35" y="35" width="110" height="70" rx="8" fill="#2D7076" opacity=".12"/>
+                        <circle cx="90" cy="55" r="18" fill="#90C3C6" opacity=".5"/>
+                        <path d="M68 88c0-12.2 9.9-22 22-22s22 9.8 22 22" stroke="#2D7076" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+                        <circle cx="90" cy="52" r="10" fill="#2D7076" opacity=".25"/>
+                        <rect x="55" y="100" width="70" height="6" rx="3" fill="#90C3C6" opacity=".35"/>
+                        <rect x="70" y="110" width="40" height="4" rx="2" fill="#90C3C6" opacity=".22"/>
+                    </svg>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="card-icon">✨</div>
-                <h3>Siap Dikembangkan</h3>
-                <p>File halaman sudah tersedia, tinggal lanjutkan desain dan fitur sesuai kebutuhan sistem.</p>
-                <a href="{{ url('/riwayat-transaksi') }}">Cek transaksi</a>
-            </div>
-        </section>
+            {{-- Single Card Form --}}
+            <div class="ta-card">
 
-        <section class="quick-section">
-            <h2>Daftar Halaman</h2>
+                {{-- Foto Profil --}}
+                <div class="ta-foto-section">
+                    <div class="ta-foto-wrap" id="fotoWrap">
+                        <div class="ta-foto-placeholder" id="fotoPlaceholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+                                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                            </svg>
+                        </div>
+                        <img id="fotoPreview" src="" alt="Preview foto" class="ta-foto-preview hidden">
+                        <button type="button" class="ta-foto-overlay" id="btnGantiFoto" title="Ganti foto">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                <circle cx="12" cy="13" r="4"/>
+                            </svg>
+                        </button>
+                        <input type="file" id="inputFoto" accept="image/jpeg,image/png" class="hidden">
+                    </div>
+                    <div class="ta-foto-info">
+                        <p class="ta-foto-label">Foto Profil</p>
+                        <p class="ta-foto-hint">Rasio 1:1 · Maks 2MB · JPG atau PNG</p>
+                        <div class="ta-foto-actions">
+                            <button type="button" class="btn-link-teal" id="btnTriggerFoto">Ganti Foto</button>
+                            <span class="ta-foto-sep">·</span>
+                            <button type="button" class="btn-link-red hidden" id="btnHapusFoto">Hapus Foto</button>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="chips">
-                <a class="chip" href="{{ url('/register') }}">Register</a>
-                <a class="chip" href="{{ url('/log-in') }}">Log In</a>
-                <a class="chip" href="{{ url('/home') }}">Home</a>
-                <a class="chip" href="{{ url('/katalog') }}">Katalog</a>
-                <a class="chip" href="{{ url('/tentang-perpustakaan') }}">Tentang Perpustakaan</a>
+                <div class="ta-divider"></div>
 
-                <a class="chip" href="{{ url('/dashboard-anggota') }}">Dashboard Anggota</a>
-                <a class="chip" href="{{ url('/informasi-buku') }}">Informasi Buku</a>
-                <a class="chip" href="{{ url('/riwayat-peminjaman') }}">Riwayat Peminjaman</a>
-                <a class="chip" href="{{ url('/status-denda') }}">Status Denda</a>
-                <a class="chip" href="{{ url('/profil-anggota') }}">Profil Anggota</a>
+                {{-- Form Grid --}}
+                <form id="formTambahAnggota" novalidate>
 
-                <a class="chip" href="{{ url('/dashboard-admin') }}">Dashboard Admin</a>
-                <a class="chip" href="{{ url('/kelola-buku') }}">Kelola Buku</a>
-                <a class="chip" href="{{ url('/tambah-buku') }}">Tambah Buku</a>
-                <a class="chip" href="{{ url('/edit-buku') }}">Edit Buku</a>
-                <a class="chip" href="{{ url('/kelola-anggota') }}">Kelola Anggota</a>
-                <a class="chip" href="{{ url('/tambah-anggota') }}">Tambah Anggota</a>
-                <a class="chip" href="{{ url('/riwayat-transaksi') }}">Riwayat Transaksi</a>
-                <a class="chip" href="{{ url('/input-peminjaman') }}">Input Peminjaman</a>
-                <a class="chip" href="{{ url('/kelola-denda') }}">Kelola Denda</a>
-                <a class="chip" href="{{ url('/detail-transaksi') }}">Detail Transaksi</a>
-                <a class="chip" href="{{ url('/detail-denda') }}">Detail Denda</a>
-                <a class="chip" href="{{ url('/laporan') }}">Laporan</a>
-                <a class="chip" href="{{ url('/setting') }}">Setting</a>
-                <a class="chip" href="{{ url('/kategori-rak') }}">Kategori Rak</a>
-            </div>
-        </section>
+                    <p class="ta-section-label">Data Diri</p>
+                    <div class="ta-grid">
+
+                        <div class="ta-field">
+                            <label for="nis">Nomor Induk Siswa (NIS) <span class="req">*</span></label>
+                            <input type="text" id="nis" name="nis" placeholder="Contoh: 20241001" maxlength="20">
+                            <span class="ta-error" id="err-nis"></span>
+                        </div>
+
+                        <div class="ta-field">
+                            <label for="nama">Nama Lengkap <span class="req">*</span></label>
+                            <input type="text" id="nama" name="nama" placeholder="Masukkan nama sesuai ijazah">
+                            <span class="ta-error" id="err-nama"></span>
+                        </div>
+
+                        <div class="ta-field">
+                            <label for="kelas">Kelas <span class="req">*</span></label>
+                            <div class="ta-select-wrap">
+                                <select id="kelas" name="kelas">
+                                    <option value="">Pilih Kelas</option>
+                                    <option value="X-A">X-A</option>
+                                    <option value="X-B">X-B</option>
+                                    <option value="X-C">X-C</option>
+                                    <option value="XI-A">XI-A</option>
+                                    <option value="XI-B">XI-B</option>
+                                    <option value="XI-C">XI-C</option>
+                                    <option value="XII-A">XII-A</option>
+                                    <option value="XII-B">XII-B</option>
+                                    <option value="XII-C">XII-C</option>
+                                </select>
+                                <svg class="ta-select-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 6l4 4 4-4"/>
+                                </svg>
+                            </div>
+                            <span class="ta-error" id="err-kelas"></span>
+                        </div>
+
+                        <div class="ta-field">
+                            <label for="hp">Nomor HP / WhatsApp <span class="req">*</span></label>
+                            <input type="text" id="hp" name="hp" placeholder="081234567XXX" maxlength="15">
+                            <span class="ta-error" id="err-hp"></span>
+                        </div>
+
+                        <div class="ta-field ta-field--full">
+                            <label for="email">Alamat Email <span class="req">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="siswa@al-uswah.sch.id">
+                            <span class="ta-error" id="err-email"></span>
+                        </div>
+
+                        <div class="ta-field ta-field--full">
+                            <label for="alamat">Alamat Tinggal</label>
+                            <textarea id="alamat" name="alamat" rows="3" placeholder="Jl. Al-Uswah No. 123..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="ta-divider"></div>
+                    <p class="ta-section-label">Data Akun</p>
+                    <div class="ta-grid">
+
+                        <div class="ta-field ta-field--full">
+                            <label for="username">Username <span class="req">*</span></label>
+                            <input type="text" id="username" name="username" placeholder="Contoh: siswa.alnama" maxlength="30" autocomplete="off">
+                            <span class="ta-error" id="err-username"></span>
+                        </div>
+
+                        <div class="ta-field">
+                            <label for="password">Password <span class="req">*</span></label>
+                            <div class="ta-input-icon">
+                                <input type="password" id="password" name="password" placeholder="Min. 8 karakter" autocomplete="new-password">
+                                <button type="button" class="ta-eye" id="eyePass" aria-label="Tampilkan password">
+                                    <svg id="eyePassIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="ta-error" id="err-password"></span>
+                        </div>
+
+                        <div class="ta-field">
+                            <label for="konfirmasi">Konfirmasi Password <span class="req">*</span></label>
+                            <div class="ta-input-icon">
+                                <input type="password" id="konfirmasi" name="konfirmasi" placeholder="Ulangi password" autocomplete="new-password">
+                                <button type="button" class="ta-eye" id="eyeKonfirmasi" aria-label="Tampilkan konfirmasi">
+                                    <svg id="eyeKonfirmasiIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="ta-error" id="err-konfirmasi"></span>
+                        </div>
+
+                    </div>
+
+                    {{-- Actions --}}
+                    <div class="ta-actions">
+                        <a href="{{ route('kelola-anggota') }}" class="btn-batal">Batal</a>
+                        <button type="submit" class="btn-simpan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+                            </svg>
+                            Simpan Anggota
+                        </button>
+                    </div>
+
+                </form>
+            </div>{{-- end ta-card --}}
+        </div>{{-- end ta-container --}}
     </main>
+
+    {{-- ===================== MODAL SUKSES ===================== --}}
+    <div class="ta-modal-overlay" id="modalSukses">
+        <div class="ta-modal">
+            <div class="ta-modal-icon ta-modal-icon--green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="32" height="32">
+                    <path d="M20 6L9 17l-5-5"/>
+                </svg>
+            </div>
+            <h3 class="ta-modal-title">Anggota Berhasil Ditambahkan!</h3>
+            <p class="ta-modal-desc">Akun anggota baru telah dibuat. Anggota dapat langsung masuk menggunakan username dan password yang telah didaftarkan.</p>
+            <div class="ta-modal-actions">
+                <button class="btn-modal-outline" id="btnTambahLagi">Tambah Lagi</button>
+                <a href="{{ route('kelola-anggota') }}" class="btn-modal-primary">Ke Daftar Anggota</a>
+            </div>
+        </div>
+    </div>
+
+    {{-- ===================== TOAST ===================== --}}
+    <div class="ta-toast" id="toast"></div>
+
+    {{-- ===================== FOOTER ADMIN ===================== --}}
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-brand-name">SMAIT Al-Uswah</span>
+                <p class="footer-brand-desc">Sistem Perpustakaan Digital<br>SMAIT Al-Uswah</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigasi</h4>
+                <ul>
+                    <li><a href="{{ route('home-admin') }}">Beranda</a></li>
+                    <li><a href="{{ route('katalog-admin') }}">Katalog</a></li>
+                    <li><a href="{{ route('kelola-buku') }}">Kelola Buku</a></li>
+                    <li><a href="{{ route('kelola-anggota') }}">Kelola Anggota</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Sistem</h4>
+                <ul>
+                    <li><a href="{{ route('dashboard-admin') }}">Dashboard</a></li>
+                    <li><a href="{{ route('laporan') }}">Laporan</a></li>
+                    <li><a href="{{ route('setting') }}">Pengaturan</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Perpustakaan SMAIT Al-Uswah. Hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="{{ asset('js/script-tambah-anggota.js') }}"></script>
 </body>
 </html>

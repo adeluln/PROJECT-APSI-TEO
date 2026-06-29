@@ -1,0 +1,877 @@
+/* ============================================================
+   style-tambah-anggota.css
+   Halaman tambah anggota — role admin
+   ============================================================ */
+
+/* ---- Layout utama ---- */
+.ta-main {
+    min-height: calc(100vh - 70px);
+    background: var(--bg);
+    padding: 48px 0 72px;
+}
+
+.ta-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ---- Header ---- */
+.ta-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.ta-header-left {
+    flex: 1;
+}
+
+.ta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.ta-eyebrow svg {
+    flex-shrink: 0;
+}
+
+.ta-title {
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    color: var(--text);
+    margin: 0 0 10px;
+    line-height: 1.2;
+}
+
+.ta-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #7a7570;
+    margin: 0;
+    max-width: 420px;
+    line-height: 1.6;
+}
+
+.ta-header-illus {
+    flex-shrink: 0;
+    width: 160px;
+    opacity: 0.85;
+}
+
+.ta-header-illus svg {
+    width: 100%;
+    height: auto;
+}
+
+/* ---- Card utama ---- */
+.ta-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    box-shadow: 0 2px 18px rgba(45, 112, 118, 0.07);
+    border: 1px solid rgba(144, 195, 198, 0.25);
+}
+
+/* ---- Foto profil ---- */
+.ta-foto-section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.ta-foto-wrap {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f0f5f5;
+    border: 2.5px dashed #90C3C6;
+    cursor: pointer;
+}
+
+.ta-foto-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #90C3C6;
+}
+
+.ta-foto-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ta-foto-preview.hidden {
+    display: none;
+}
+
+.ta-foto-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(45, 112, 118, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+}
+
+.ta-foto-wrap:hover .ta-foto-overlay {
+    opacity: 1;
+}
+
+.ta-foto-info {
+    flex: 1;
+}
+
+.ta-foto-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+}
+
+.ta-foto-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    color: #9e9891;
+    margin: 0 0 10px;
+}
+
+.ta-foto-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ta-foto-sep {
+    color: #ccc;
+    font-size: 0.85rem;
+}
+
+.btn-link-teal {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.btn-link-teal:hover {
+    color: #1e5459;
+}
+
+.btn-link-red {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #c0392b;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.btn-link-red:hover {
+    color: #922b21;
+}
+
+.btn-link-red.hidden,
+.hidden {
+    display: none !important;
+}
+
+/* ---- Divider ---- */
+.ta-divider {
+    height: 1px;
+    background: rgba(144, 195, 198, 0.25);
+    margin: 28px 0;
+}
+
+/* ---- Section label ---- */
+.ta-section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 20px;
+}
+
+/* ---- Grid field ---- */
+.ta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+}
+
+.ta-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ta-field--full {
+    grid-column: 1 / -1;
+}
+
+.ta-field label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.req {
+    color: #c0392b;
+}
+
+.ta-field input,
+.ta-field select,
+.ta-field textarea {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: #fff;
+    border: 1.5px solid #d8d3ce;
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ta-field input:focus,
+.ta-field select:focus,
+.ta-field textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(45, 112, 118, 0.1);
+}
+
+.ta-field input.is-error,
+.ta-field select.is-error,
+.ta-field textarea.is-error {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+}
+
+.ta-field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Select kustom */
+.ta-select-wrap {
+    position: relative;
+}
+
+.ta-select-wrap select {
+    appearance: none;
+    padding-right: 36px;
+}
+
+.ta-select-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #9e9891;
+    width: 16px;
+    height: 16px;
+}
+
+/* Input dengan ikon mata */
+.ta-input-icon {
+    position: relative;
+}
+
+.ta-input-icon input {
+    padding-right: 42px;
+}
+
+.ta-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9e9891;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+}
+
+.ta-eye:hover {
+    color: var(--primary);
+}
+
+/* Error message */
+.ta-error {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: #c0392b;
+    min-height: 16px;
+    line-height: 1.4;
+}
+
+/* ---- Tombol aksi ---- */
+.ta-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(144, 195, 198, 0.2);
+}
+
+.btn-batal {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #7a7570;
+    background: #fff;
+    border: 1.5px solid #d8d3ce;
+    border-radius: var(--radius);
+    padding: 10px 22px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-batal:hover {
+    border-color: #b0a99e;
+    color: var(--text);
+}
+
+.btn-simpan {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+}
+
+.btn-simpan:hover {
+    background: #235a5f;
+    transform: translateY(-1px);
+}
+
+.btn-simpan:active {
+    transform: translateY(0);
+}
+
+/* ============================================================
+   MODAL SUKSES
+   ============================================================ */
+.ta-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(36, 40, 44, 0.45);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.ta-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ta-modal {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 40px 36px 32px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    transform: translateY(16px) scale(0.97);
+    transition: transform 0.22s ease;
+}
+
+.ta-modal-overlay.active .ta-modal {
+    transform: translateY(0) scale(1);
+}
+
+.ta-modal-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.ta-modal-icon--green {
+    background: rgba(22, 160, 133, 0.12);
+    color: #16a085;
+}
+
+.ta-modal-title {
+    font-family: Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin: 0 0 10px;
+}
+
+.ta-modal-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: #7a7570;
+    margin: 0 0 28px;
+    line-height: 1.6;
+}
+
+.ta-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-modal-outline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: #fff;
+    border: 1.5px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 9px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-modal-outline:hover {
+    background: rgba(45, 112, 118, 0.06);
+}
+
+.btn-modal-primary {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius);
+    padding: 9px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background 0.15s;
+}
+
+.btn-modal-primary:hover {
+    background: #235a5f;
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.ta-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--primary);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    z-index: 2000;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    max-width: 300px;
+}
+
+.ta-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+    .ta-card {
+        padding: 24px 20px;
+    }
+
+    .ta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ta-field--full {
+        grid-column: 1;
+    }
+
+    .ta-header {
+        flex-direction: column;
+    }
+
+    .ta-header-illus {
+        display: none;
+    }
+
+    .ta-title {
+        font-size: 1.5rem;
+    }
+
+    .ta-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-batal,
+    .btn-simpan {
+        justify-content: center;
+        width: 100%;
+    }
+}
+/* ============================================================
+   FIX NAVBAR + GLOBAL STYLE TAMBAH ANGGOTA
+   tempel di PALING BAWAH style-tambah-anggota.css
+   ============================================================ */
+
+:root {
+    --primary: #2D7076;
+    --secondary: #90C3C6;
+    --bg: #F8F7F2;
+    --card: #E9D9C4;
+    --accent: #D5C5DB;
+    --text: #484441;
+    --radius: 14px;
+    --radius-lg: 26px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body.admin-page {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ================= NAVBAR ADMIN ================= */
+
+.navbar {
+    width: 100%;
+    min-height: 78px;
+    background: rgba(248, 247, 242, 0.96);
+    border-bottom: 1px solid rgba(45, 112, 118, 0.12);
+    box-shadow: 0 8px 28px rgba(45, 112, 118, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.nav-container {
+    max-width: 1180px;
+    min-height: 78px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    width: 54px !important;
+    height: 54px !important;
+    max-width: 54px !important;
+    max-height: 54px !important;
+    object-fit: contain;
+    display: block;
+}
+
+.brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.brand-accent {
+    color: #5a8f93;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+
+.nav-links li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 13px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #514c48;
+    text-decoration: none;
+    line-height: 1;
+    transition: 0.18s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(144, 195, 198, 0.22);
+    color: var(--primary);
+}
+
+.nav-links a.active {
+    background: rgba(45, 112, 118, 0.12);
+    color: var(--primary);
+}
+
+/* ================= PROFILE ADMIN ================= */
+
+.nav-profile {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.profile-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(144, 195, 198, 0.16);
+    padding: 8px 13px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.profile-avatar {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 50%;
+    background: #EAF3F3;
+    color: var(--primary);
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid rgba(144, 195, 198, 0.45);
+    flex-shrink: 0;
+}
+
+.profile-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-avatar svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ================= MAIN FIX ================= */
+
+.ta-main {
+    background:
+        radial-gradient(circle at 8% 8%, rgba(213, 197, 219, 0.28), transparent 24%),
+        radial-gradient(circle at 92% 18%, rgba(144, 195, 198, 0.22), transparent 25%),
+        var(--bg);
+}
+
+.ta-container {
+    position: relative;
+    z-index: 1;
+}
+
+.ta-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+}
+
+/* ================= FOOTER ADMIN ================= */
+
+.footer {
+    background: #FFFFFF;
+    border-top: 1px solid rgba(45, 112, 118, 0.10);
+    padding: 42px 0 0;
+    margin-top: 0;
+}
+
+.footer-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px 34px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 32px;
+}
+
+.footer-brand-name {
+    display: block;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.footer-brand-desc,
+.footer-links a,
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: #7a7570;
+    line-height: 1.7;
+}
+
+.footer-links h4 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 0.92rem;
+}
+
+.footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(45, 112, 118, 0.10);
+    padding: 16px 28px;
+    text-align: center;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 980px) {
+    .nav-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 16px 22px;
+    }
+
+    .nav-brand {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .nav-profile {
+        order: 2;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .brand-name {
+        font-size: 0.95rem;
+    }
+
+    .profile-label {
+        display: none;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+}
